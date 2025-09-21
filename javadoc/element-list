@@ -1,0 +1,15 @@
+com.profile.searcher
+com.profile.searcher.entity
+com.profile.searcher.model.enums
+com.profile.searcher.model.exceptions
+com.profile.searcher.model.phantom.buster
+com.profile.searcher.model.properties
+com.profile.searcher.model.request
+com.profile.searcher.model.response
+com.profile.searcher.repository
+com.profile.searcher.rest.v1
+com.profile.searcher.service
+com.profile.searcher.service.client
+com.profile.searcher.service.impl
+com.profile.searcher.service.job
+com.profile.searcher.service.mapper
