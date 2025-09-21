@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: linkedin-profile-searcher
+  datasource:
+    url: jdbc:h2:mem:linked-in-profile-searcher-svc;MODE=MYSQL
+    username: sa
+    driver-class-name: org.h2.Driver
+    password:
+  flyway:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+com:
+  phantom:
+    buster:
+      phantom-id: 1234
+      phantom-buster-api-key: apikey
+      linked-in-session-cookie: cookie

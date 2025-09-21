@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_DATABASE_HOST:localhost}:${POSTGRES_DATABASE_PORT:5432}/${POSTGRES_DATABASE_NAME:linkedin_profile_searcher}
+    username: ${POSTGRES_DATABASE_USERNAME:postgres}
+    password: ${POSTGRES_DATABASE_PASSWORD:}
+  flyway:
+    user: ${POSTGRES_DATABASE_NAME:postgres}
+    password: ${POSTGRES_DATABASE_PASSWORD}
+    baseline-version: 1.0
+    baseline-on-migrate: true
+    baseline-description: baseline-description
+    locations: classpath:db/migration
+
+  profiles:
+    active: local
+
+
+com:
+  phantom:
+    buster:
+      phantom-id: ${PHANTOM_ID:814818359720730}
+      phantom-buster-api-key: ${PHANTOM_BUSTER_API_KEY:GXDWqkWxhbHATLTWjNbnyaNwhmEfEjaidJmCQHD8zDk}
+      linked-in-session-cookie: ${LINKED_IN_SESSION_COOKIE}
+  linkedin:
+    searcher:
+      base-url: http://localhost:${server.port}
+server:
+  port: 8080
