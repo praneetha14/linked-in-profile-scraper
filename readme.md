@@ -1,7 +1,7 @@
 # LinkedIn profile Data Searcher
 
-[![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://praneetha14.github.io/linkedin-profile-scraper/javadoc/)
-![Coverage](https://raw.githubusercontent.com/pranaatha14/linkedin-profile-scraper/badges/coverage.svg)
+[![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://praneetha14.github.io/linked-in-profile-scraper/javadoc/)
+![Coverage](https://raw.githubusercontent.com/pranaatha14/linked-in-profile-scraper/badges/coverage.svg)
 
 **This Repository is a sprint boot microservice that has APIs related to searching and scrapping of Alumni linkedIn profiles**
 
