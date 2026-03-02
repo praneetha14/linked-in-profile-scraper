@@ -119,12 +119,22 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>io.swagger.v3.oas.models.OpenAPI</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#openAPI()" class="member-name-link">openAPI</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="service/job/PhantomAgentTaskProcessingJob.html" title="class in com.profile.searcher.service.job">PhantomAgentTaskProcessingJob</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#phantomAgentTaskProcessingJob(com.profile.searcher.repository.PhantomAgentTaskRepository,com.profile.searcher.service.client.PhantomBusterClient,com.fasterxml.jackson.databind.ObjectMapper,com.profile.searcher.service.mapper.GenericModelMapper,com.profile.searcher.repository.UniversityRepository)" class="member-name-link">phantomAgentTaskProcessingJob</a><wbr>(<a href="repository/PhantomAgentTaskRepository.html" title="interface in com.profile.searcher.repository">PhantomAgentTaskRepository</a>&nbsp;phantomAgentTaskRepository,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="amqp/PhantomAgentTaskConsumer.html" title="class in com.profile.searcher.amqp">PhantomAgentTaskConsumer</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#phantomAgentTaskConsumer(com.profile.searcher.repository.PhantomAgentTaskRepository,com.profile.searcher.service.client.PhantomBusterClient,com.fasterxml.jackson.databind.ObjectMapper,com.profile.searcher.service.mapper.GenericModelMapper,com.profile.searcher.repository.UniversityRepository)" class="member-name-link">phantomAgentTaskConsumer</a><wbr>(<a href="repository/PhantomAgentTaskRepository.html" title="interface in com.profile.searcher.repository">PhantomAgentTaskRepository</a>&nbsp;phantomAgentTaskRepository,
  <a href="service/client/PhantomBusterClient.html" title="class in com.profile.searcher.service.client">PhantomBusterClient</a>&nbsp;phantomBusterClient,
  com.fasterxml.jackson.databind.ObjectMapper&nbsp;objectMapper,
  <a href="service/mapper/GenericModelMapper.html" title="interface in com.profile.searcher.service.mapper">GenericModelMapper</a>&nbsp;genericModelMapper,
  <a href="repository/UniversityRepository.html" title="interface in com.profile.searcher.repository">UniversityRepository</a>&nbsp;universityRepository)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="service/job/PhantomAgentTaskProcessingJob.html" title="class in com.profile.searcher.service.job">PhantomAgentTaskProcessingJob</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#phantomAgentTaskProcessingJob(com.profile.searcher.repository.PhantomAgentTaskRepository,com.profile.searcher.service.client.PhantomBusterClient,com.fasterxml.jackson.databind.ObjectMapper,com.profile.searcher.service.mapper.GenericModelMapper,com.profile.searcher.repository.UniversityRepository)" class="member-name-link">phantomAgentTaskProcessingJob</a><wbr>(<a href="repository/PhantomAgentTaskRepository.html" title="interface in com.profile.searcher.repository">PhantomAgentTaskRepository</a>&nbsp;phantomAgentTaskRepository,
+ <a href="service/client/PhantomBusterClient.html" title="class in com.profile.searcher.service.client">PhantomBusterClient</a>&nbsp;phantomBusterClient,
+ com.fasterxml.jackson.databind.ObjectMapper&nbsp;objectMapper,
+ <a href="service/mapper/GenericModelMapper.html" title="interface in com.profile.searcher.service.mapper">GenericModelMapper</a>&nbsp;genericModelMapper,
+ <a href="repository/UniversityRepository.html" title="interface in com.profile.searcher.repository">UniversityRepository</a>&nbsp;universityRepository)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="amqp/PhantomAgentTaskPublisher.html" title="class in com.profile.searcher.amqp">PhantomAgentTaskPublisher</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#phantomAgentTaskPublisher(org.springframework.amqp.rabbit.core.RabbitTemplate)" class="member-name-link">phantomAgentTaskPublisher</a><wbr>(org.springframework.amqp.rabbit.core.RabbitTemplate&nbsp;rabbitTemplate)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="service/PhantomAgentTaskService.html" title="interface in com.profile.searcher.service">PhantomAgentTaskService</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#phantomAgentTaskService(com.profile.searcher.service.mapper.GenericModelMapper,com.profile.searcher.repository.PhantomAgentTaskRepository)" class="member-name-link">phantomAgentTaskService</a><wbr>(<a href="service/mapper/GenericModelMapper.html" title="interface in com.profile.searcher.service.mapper">GenericModelMapper</a>&nbsp;modelMapper,
@@ -136,8 +146,9 @@ loadScripts(document, 'script');</script>
  com.fasterxml.jackson.databind.ObjectMapper&nbsp;objectMapper)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="service/PhantomBusterService.html" title="interface in com.profile.searcher.service">PhantomBusterService</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#phantomBusterService(com.profile.searcher.service.client.PhantomBusterClient,com.profile.searcher.service.PhantomAgentTaskService)" class="member-name-link">phantomBusterService</a><wbr>(<a href="service/client/PhantomBusterClient.html" title="class in com.profile.searcher.service.client">PhantomBusterClient</a>&nbsp;busterClient,
- <a href="service/PhantomAgentTaskService.html" title="interface in com.profile.searcher.service">PhantomAgentTaskService</a>&nbsp;phantomAgentTaskService)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#phantomBusterService(com.profile.searcher.service.client.PhantomBusterClient,com.profile.searcher.service.PhantomAgentTaskService,com.profile.searcher.amqp.PhantomAgentTaskPublisher)" class="member-name-link">phantomBusterService</a><wbr>(<a href="service/client/PhantomBusterClient.html" title="class in com.profile.searcher.service.client">PhantomBusterClient</a>&nbsp;busterClient,
+ <a href="service/PhantomAgentTaskService.html" title="interface in com.profile.searcher.service">PhantomAgentTaskService</a>&nbsp;phantomAgentTaskService,
+ <a href="amqp/PhantomAgentTaskPublisher.html" title="class in com.profile.searcher.amqp">PhantomAgentTaskPublisher</a>&nbsp;phantomAgentTaskPublisher)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.web.client.RestTemplate</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#restTemplate()" class="member-name-link">restTemplate</a>()</code></div>
@@ -185,6 +196,24 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="phantomAgentTaskPublisher(org.springframework.amqp.rabbit.core.RabbitTemplate)">
+<h3>phantomAgentTaskPublisher</h3>
+<div class="member-signature"><span class="annotations">@Bean
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="amqp/PhantomAgentTaskPublisher.html" title="class in com.profile.searcher.amqp">PhantomAgentTaskPublisher</a></span>&nbsp;<span class="element-name">phantomAgentTaskPublisher</span><wbr><span class="parameters">(org.springframework.amqp.rabbit.core.RabbitTemplate&nbsp;rabbitTemplate)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="phantomAgentTaskConsumer(com.profile.searcher.repository.PhantomAgentTaskRepository,com.profile.searcher.service.client.PhantomBusterClient,com.fasterxml.jackson.databind.ObjectMapper,com.profile.searcher.service.mapper.GenericModelMapper,com.profile.searcher.repository.UniversityRepository)">
+<h3>phantomAgentTaskConsumer</h3>
+<div class="member-signature"><span class="annotations">@Bean
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="amqp/PhantomAgentTaskConsumer.html" title="class in com.profile.searcher.amqp">PhantomAgentTaskConsumer</a></span>&nbsp;<span class="element-name">phantomAgentTaskConsumer</span><wbr><span class="parameters">(<a href="repository/PhantomAgentTaskRepository.html" title="interface in com.profile.searcher.repository">PhantomAgentTaskRepository</a>&nbsp;phantomAgentTaskRepository,
+ <a href="service/client/PhantomBusterClient.html" title="class in com.profile.searcher.service.client">PhantomBusterClient</a>&nbsp;phantomBusterClient,
+ com.fasterxml.jackson.databind.ObjectMapper&nbsp;objectMapper,
+ <a href="service/mapper/GenericModelMapper.html" title="interface in com.profile.searcher.service.mapper">GenericModelMapper</a>&nbsp;genericModelMapper,
+ <a href="repository/UniversityRepository.html" title="interface in com.profile.searcher.repository">UniversityRepository</a>&nbsp;universityRepository)</span></div>
+</section>
+</li>
+<li>
 <section class="detail" id="phantomAgentTaskService(com.profile.searcher.service.mapper.GenericModelMapper,com.profile.searcher.repository.PhantomAgentTaskRepository)">
 <h3>phantomAgentTaskService</h3>
 <div class="member-signature"><span class="annotations">@Bean
@@ -209,11 +238,12 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="phantomBusterService(com.profile.searcher.service.client.PhantomBusterClient,com.profile.searcher.service.PhantomAgentTaskService)">
+<section class="detail" id="phantomBusterService(com.profile.searcher.service.client.PhantomBusterClient,com.profile.searcher.service.PhantomAgentTaskService,com.profile.searcher.amqp.PhantomAgentTaskPublisher)">
 <h3>phantomBusterService</h3>
 <div class="member-signature"><span class="annotations">@Bean
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="service/PhantomBusterService.html" title="interface in com.profile.searcher.service">PhantomBusterService</a></span>&nbsp;<span class="element-name">phantomBusterService</span><wbr><span class="parameters">(<a href="service/client/PhantomBusterClient.html" title="class in com.profile.searcher.service.client">PhantomBusterClient</a>&nbsp;busterClient,
- <a href="service/PhantomAgentTaskService.html" title="interface in com.profile.searcher.service">PhantomAgentTaskService</a>&nbsp;phantomAgentTaskService)</span></div>
+ <a href="service/PhantomAgentTaskService.html" title="interface in com.profile.searcher.service">PhantomAgentTaskService</a>&nbsp;phantomAgentTaskService,
+ <a href="amqp/PhantomAgentTaskPublisher.html" title="class in com.profile.searcher.amqp">PhantomAgentTaskPublisher</a>&nbsp;phantomAgentTaskPublisher)</span></div>
 </section>
 </li>
 <li>

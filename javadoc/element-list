@@ -1,4 +1,5 @@
 com.profile.searcher
+com.profile.searcher.amqp
 com.profile.searcher.entity
 com.profile.searcher.model.enums
 com.profile.searcher.model.exceptions
