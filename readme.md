@@ -10,6 +10,7 @@
 + **Java 17**
 + **Spring boot 3.5.3**
 + **PostGreSQL 17.5**
++ **RabbitMQ**
 + **Gradle 8.14.2**
 + **flyway 11.7.2**
 + **pojo tester 0.9.0**
@@ -24,19 +25,20 @@
 There are 3 APIs in this microservice.
 
 1. /api/v1/linked-in/search -> which accepts payload that includes universityName, graduationYear and CurrentDesignation
-   + This API accepts the paylaod and searches whether the response is present in db or not
+   + This API accepts the payload and searches whether the response is present in db or not
        + If present, return the response to the client
        + else trigger PhantomBuster LinkedIn search export phantom, save the PhantomAgentTask and return tracking id.
-   + There is a scheduled job in the microservice which runs for every 2 minutes (configurable based on the traffic) and picks the phantomAgentTaskEntities that are pending, extracts phantom container id from them and triggers phantoms API to fetch the profile response.
+   + A message with the tracking ID is published to RabbitMQ with a 5-minute delay.
+   + After the delay, a consumer picks up the task and triggers the PhantomBuster API to fetch the profile response.
    + If response is present, save the response in db and mark PhantomAgentTask Completed.
    + If error occurred, mark the phantomAgentTask failed.
    + If no response/still scraping, increment the retry count of PhantomAgentTask, if retry count is already incremented mark task as failed.
 
 2. /api/v1/linked-in/fetch/{trackingId}
-   + This Api returns the saved data that job saves by fetching it from PhantomBuster using trackingId.
+   + This Api returns the saved data fetched from PhantomBuster using trackingId.
    + Pass the trackingId you got in /api/v1/linked-in/search apis response.
    + If the data is available the api returns the Alumni LinkedIn profile data.
-   + If the task got marked as failed by the job, returns error.
+   + If the task got marked as failed, returns error.
    + If the task still in pending state, gives relevant message.
 
 3. /api/v1/linked-in/fetch/all
@@ -56,5 +58,3 @@ There are 3 APIs in this microservice.
   + LINKED_IN_SESSION_COOKIE - give li_at cookie from your linkedIn (mandatory).
 + After Exporting all these environment variable you'll be able to run the application on 8080 port.
 + Look for the swagger url in the application logs and navigate to swagger. That's it, Happy scrapping.
-
-

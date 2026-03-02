@@ -1,6 +1,8 @@
 package com.profile.searcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.profile.searcher.amqp.PhantomAgentTaskConsumer;
+import com.profile.searcher.amqp.PhantomAgentTaskPublisher;
 import com.profile.searcher.model.properties.ApplicationProperties;
 import com.profile.searcher.model.properties.PhantomBusterProperties;
 import com.profile.searcher.repository.AlumniRepository;
@@ -17,6 +19,7 @@ import com.profile.searcher.service.job.PhantomAgentTaskProcessingJob;
 import com.profile.searcher.service.mapper.GenericModelMapper;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.context.ServletWebServerInitializedEvent;
@@ -50,6 +53,21 @@ public class LinkedProfileSearcherAutoConfiguration {
     }
 
     @Bean
+    public PhantomAgentTaskPublisher phantomAgentTaskPublisher(RabbitTemplate rabbitTemplate) {
+        return new PhantomAgentTaskPublisher(rabbitTemplate);
+    }
+
+    @Bean
+    public PhantomAgentTaskConsumer phantomAgentTaskConsumer(PhantomAgentTaskRepository phantomAgentTaskRepository,
+                                                             PhantomBusterClient phantomBusterClient,
+                                                             ObjectMapper objectMapper,
+                                                             GenericModelMapper genericModelMapper,
+                                                             UniversityRepository universityRepository) {
+        return new PhantomAgentTaskConsumer(phantomAgentTaskRepository, phantomBusterClient, objectMapper,
+                genericModelMapper, universityRepository);
+    }
+
+    @Bean
     public PhantomAgentTaskService phantomAgentTaskService(GenericModelMapper modelMapper,
                                                            PhantomAgentTaskRepository phantomAgentTaskRepository) {
         return new PhantomAgentTaskServiceImpl(modelMapper, phantomAgentTaskRepository);
@@ -69,8 +87,9 @@ public class LinkedProfileSearcherAutoConfiguration {
 
     @Bean
     public PhantomBusterService phantomBusterService(PhantomBusterClient busterClient,
-                                                     PhantomAgentTaskService phantomAgentTaskService) {
-        return new PhantomBusterServiceImpl(busterClient, phantomAgentTaskService);
+                                                     PhantomAgentTaskService phantomAgentTaskService,
+                                                     PhantomAgentTaskPublisher phantomAgentTaskPublisher) {
+        return new PhantomBusterServiceImpl(busterClient, phantomAgentTaskService, phantomAgentTaskPublisher);
     }
 
     @Bean

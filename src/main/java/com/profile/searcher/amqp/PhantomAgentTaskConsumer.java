@@ -1,6 +1,5 @@
-package com.profile.searcher.service.job;
+package com.profile.searcher.amqp;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.profile.searcher.entity.AlumniEntity;
@@ -15,15 +14,18 @@ import com.profile.searcher.service.client.PhantomBusterClient;
 import com.profile.searcher.service.mapper.GenericModelMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.Optional;
+import java.util.UUID;
 
+@RabbitListener(queues = {"phantom-agent-task-queue"})
 @RequiredArgsConstructor
 @Slf4j
-public class PhantomAgentTaskProcessingJob {
+public class PhantomAgentTaskConsumer {
 
     private final PhantomAgentTaskRepository phantomAgentTaskRepository;
     private final PhantomBusterClient phantomBusterClient;
@@ -31,21 +33,34 @@ public class PhantomAgentTaskProcessingJob {
     private final GenericModelMapper genericModelMapper;
     private final UniversityRepository universityRepository;
 
-    //@Scheduled(fixedDelay = 2, timeUnit = TimeUnit.MINUTES)
-    public void processPhantomAgentTask() {
-        List<PhantomAgentTaskEntity> phantomAgentTaskEntities = phantomAgentTaskRepository
-                .findAllByPhantomAgentTaskStatus(PhantomAgentTaskStatus.AGENT_LAUNCHED);
-        phantomAgentTaskEntities.forEach(phantomAgentTaskEntity -> {
-            LinkedInProfileScrapResponse response;
-            try {
-                response = phantomBusterClient
-                        .getContainerOutput(phantomAgentTaskEntity.getContainerId());
-            } catch (Exception e) {
-                log.error("PhantomAgentProcessing job failed for tracking id " + phantomAgentTaskEntity.getId(), e);
-                phantomAgentTaskEntity.setPhantomAgentTaskStatus(PhantomAgentTaskStatus.TASK_FAILED);
-                phantomAgentTaskRepository.save(phantomAgentTaskEntity);
-                return;
-            }
+    @RabbitHandler
+    public void consume(String trackingId) {
+        log.info("Consuming phantom agent task queue {}", trackingId);
+
+        Optional<PhantomAgentTaskEntity> optionalTask =
+                phantomAgentTaskRepository.findById(UUID.fromString(trackingId));
+
+        if (optionalTask.isEmpty()) {
+            log.error("Task not found for trackingId: {}", trackingId);
+            return;
+        }
+
+        PhantomAgentTaskEntity phantomAgentTaskEntity = optionalTask.get();
+        try {
+            LinkedInProfileScrapResponse response =
+                    phantomBusterClient.getContainerOutput(phantomAgentTaskEntity.getContainerId());
+
+            processResponse(phantomAgentTaskEntity, response);
+
+        } catch (Exception e) {
+            log.error("Error processing phantom agent task {}", trackingId, e);
+            phantomAgentTaskEntity.setPhantomAgentTaskStatus(PhantomAgentTaskStatus.TASK_FAILED);
+        }
+
+        phantomAgentTaskRepository.save(phantomAgentTaskEntity);
+    }
+
+    public void processResponse(PhantomAgentTaskEntity phantomAgentTaskEntity, LinkedInProfileScrapResponse response) {
             if ("finished".equals(response.getStatus()) && response.getExitCode() == 0) {
                 List<LinkedInProfileExportAgentResponse> agentResponse;
                 try {
@@ -76,8 +91,6 @@ public class PhantomAgentTaskProcessingJob {
                     }
                 }
             }
-        });
-        phantomAgentTaskRepository.saveAll(phantomAgentTaskEntities);
     }
 
     private UniversityEntity getUniversityEntity(String university) {

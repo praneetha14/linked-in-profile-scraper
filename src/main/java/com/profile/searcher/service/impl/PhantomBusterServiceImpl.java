@@ -1,5 +1,6 @@
 package com.profile.searcher.service.impl;
 
+import com.profile.searcher.amqp.PhantomAgentTaskPublisher;
 import com.profile.searcher.model.phantom.buster.PhantomLaunchResponse;
 import com.profile.searcher.model.request.LinkedInProfileSearchDTO;
 import com.profile.searcher.model.response.SuccessResponseVO;
@@ -17,6 +18,8 @@ public class PhantomBusterServiceImpl implements PhantomBusterService {
 
     private final PhantomAgentTaskService phantomAgentTaskService;
 
+    private final PhantomAgentTaskPublisher phantomAgentTaskPublisher;
+
     @Override
     public SuccessResponseVO<Object> searchLinkedInProfiles(LinkedInProfileSearchDTO linkedInProfileSearchDTO) {
         PhantomLaunchResponse phantomLaunchResponse = phantomBusterClient
@@ -24,6 +27,8 @@ public class PhantomBusterServiceImpl implements PhantomBusterService {
                         linkedInProfileSearchDTO.getUniversity());
         UUID trackingId = phantomAgentTaskService.createPhantomBulkConsentTask(phantomLaunchResponse.getContainerId(),
                 linkedInProfileSearchDTO);
+        //todo: publish a message to rabbitMQ with configurable delay
+        phantomAgentTaskPublisher.publish(trackingId);
         return SuccessResponseVO.of("Phantom to scrap linkedIn data launched successfully. " +
                 "You can access your data using result api by passing given tracking id with in few minutes", trackingId);
     }
